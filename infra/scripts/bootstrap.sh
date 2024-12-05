@@ -3,14 +3,11 @@
 set -Eeuo pipefail
 
 
-KUBE_DIR="$HOME/.kube"
+echo "Running installation scripts..."
+for file in "$HOME/Workspace/workspace/self-hosting/infra/scripts/install"/*.sh; do
+    "  Installing $(basename "${file%%.sh}")"
+    bash "$file"
+done
 
-echo "Creating $KUBE_DIR directory"
-mkdir -p "$KUBE_DIR"
-
-echo "Setting permissions on $KUBE_DIR ..."
-sudo chown -R "${USER}:${USER}" ~/.kube
-
-echo "Verifying $KUBE directory"
-ls -l "$KUBE"
+echo "Finished installations."
 
