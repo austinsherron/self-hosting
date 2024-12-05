@@ -31,6 +31,9 @@ sudo chown -R "${USER}:${USER}" ~/.kube || mkdir -p ~/.kube
 echo "Enabling essential microk8s addons..."
 microk8s enable dns storage
 
+echo "Enabling Kubernetes dashboard..."
+sudo microk8s enable dashboard
+
 echo "Verifying microk8s installation"
 microk8s status --wait-ready
 
