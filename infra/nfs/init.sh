@@ -31,5 +31,5 @@ echo "Verifying mount"
 mount | grep "$MOUNT_POINT"
 
 echo "Adding mount to /etc/fstab"
-echo "$NAS_IP:$NFS_SHARE  $MOUNT_POINT  nfs  defaults  0  0" >> sudo tee -a /etc/fstab
+echo "$NAS_IP:$NFS_SHARE  $MOUNT_POINT  nfs  defaults  0  0" | sudo tee -a /etc/fstab
 
