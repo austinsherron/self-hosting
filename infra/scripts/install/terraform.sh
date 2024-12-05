@@ -3,6 +3,11 @@
 set -Eeuo pipefail
 
 
+if which terraform &> /dev/null; then
+    echo "Terraform is already installed; exiting"
+    exit 0
+fi
+
 echo "Updating system packages..."
 sudo apt update && sudo apt upgrade -y
 

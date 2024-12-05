@@ -3,6 +3,11 @@
 set -Eeuo pipefail
 
 
+if which microk8s &> /dev/null; then
+    echo "MicroK8s is already installed; exiting"
+    exit 0
+fi
+
 echo "Updating system packages..."
 sudo apt update -y && sudo apt upgrade -y
 
