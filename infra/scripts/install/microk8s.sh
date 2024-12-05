@@ -17,6 +17,9 @@ sudo snap install microk8s --classic
 echo "Adding user to the 'microk8s' group..."
 sudo usermod -aG microk8s "${USER}"
 
+echo "Switching to 'microk8s' group..."
+newgrp microk8s
+
 echo "Setting up kubeconfig permissions..."
 sudo chown -R "${USER}:${USER}" ~/.kube || mkdir -p ~/.kube
 

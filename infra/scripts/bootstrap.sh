@@ -3,9 +3,14 @@
 set -Eeuo pipefail
 
 
-echo "Creating ~/.kube directory"
-mkdir ~/.kube
+KUBE_DIR="$HOME/.kube"
 
-echo "Verifying ~/.kube directory"
-ls -l ~/.kube
+echo "Creating $KUBE_DIR directory"
+mkdir -p "$KUBE_DIR"
+
+echo "Setting permissions on $KUBE_DIR ..."
+sudo chown -R "${USER}:${USER}" ~/.kube
+
+echo "Verifying $KUBE directory"
+ls -l "$KUBE"
 
