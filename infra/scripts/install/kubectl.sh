@@ -5,6 +5,11 @@ set -Eeuo pipefail
 
 VERSION="v1.31.0"
 
+if which kubectl &> /dev/null; then
+    echo "kubectl is already installed; exiting"
+    exit 0
+fi
+
 echo "Updating system packages..."
 sudo apt update && sudo apt upgrade -y
 
