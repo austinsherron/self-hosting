@@ -18,7 +18,7 @@ echo "Adding tailscale repo to system package list"
 curl -fsSL https://pkgs.tailscale.com/stable/ubuntu/jammy.tailscale-keyring.list | sudo tee /etc/apt/sources.list.d/tailscale.list
 
 echo "Installing tailscale..."
-sudo apt install -y tailscale
+sudo apt update && sudo apt install -y tailscale
 
 echo "Initializing tailscale..."
 sudo tailscale up
