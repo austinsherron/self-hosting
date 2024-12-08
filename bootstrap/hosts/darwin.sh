@@ -12,11 +12,10 @@ SSH_USER="austin"
 function install_ansible() {
     if which ansible &> /dev/null; then
         echo "[INFO] ansible already installed"
-        return 0
+    else
+        echo "[INFO] installing ansible"
+        brew install ansible
     fi
-
-    echo "[INFO] installing ansible"
-    brew install ansible
 }
 
 function add_default_ssh_config() {

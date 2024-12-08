@@ -1,0 +1,23 @@
+- name: Run Nextcloud terraform
+  hosts: all
+  tasks:
+
+    - name: Initialize Terraform
+      command:
+        cmd: terraform init
+        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud/terraform"
+
+    - name: Run Nextcloud Terraform plan
+      command:
+        cmd: terraform plan -no-color
+        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud/terraform"
+      register: plan_output
+
+    - name: Display Nextcloud Terraform plan
+      debug:
+        msg: "{{ plan_output.stdout }}"
+
+    - name: Apply Terraform
+      command:
+        cmd: terraform apply -auto-approve
+        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud/terraform"
