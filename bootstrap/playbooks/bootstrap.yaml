@@ -1,0 +1,14 @@
+- name: "Import git playbook"
+  ansible.builtin.import_playbook: install/git.yaml
+
+- name: "Import git playbook"
+  ansible.builtin.import_playbook: install/kubectl.yaml
+
+- name: "Import git playbook"
+  ansible.builtin.import_playbook: install/microk8s.yaml
+
+- name: "Import git playbook"
+  ansible.builtin.import_playbook: install/terraform.yaml
+
+- name: "Import git playbook"
+  ansible.builtin.import_playbook: install/tailscale.yaml

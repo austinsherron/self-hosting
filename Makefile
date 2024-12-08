@@ -2,7 +2,7 @@
 
 BOOTSTRAP_PATH := bootstrap/main.sh
 INFRA_PATH := infra/main.sh
-TAILSCALE_PB := infra/playbooks/tailscale.yaml
+TAILSCALE_PB := infra/playbooks/install/tailscale.yaml
 
 # stages
 
