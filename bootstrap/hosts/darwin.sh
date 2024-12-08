@@ -18,15 +18,6 @@ function install_ansible() {
     fi
 }
 
-function install_ansible_collections() {
-    if ansible-galaxy collection list | grep -q community.general; then
-        echo "[INFO] ansible community.general collection already installed"
-    else
-        echo "[INFO] installing ansible community.general collection"
-        ansible-galaxy collection install community.general
-    fi
-}
-
 function add_default_ssh_config() {
     echo "[INFO] Adding default ssh config"
 
@@ -118,7 +109,6 @@ function run_install_playbooks() {
 echo "[INFO] bootstrapping darwin"
 
 install_ansible || exit 1
-install_ansible_collections || exit 1
 copy_ansible_hosts || exit 1
 setup_ssh || exit 1
 
