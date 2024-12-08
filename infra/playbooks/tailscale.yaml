@@ -1,0 +1,23 @@
+- name: Run Tailscale terraform
+  hosts: all
+  tasks:
+
+    - name: Initialize Terraform
+      command:
+        cmd: terraform init
+        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale/terraform"
+
+    - name: Run Tailscale Terraform plan
+      command:
+        cmd: terraform plan -no-color
+        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale/terraform"
+      register: plan_output
+
+    - name: Display Tailscale Terraform plan
+      debug:
+        msg: "{{ plan_output.stdout }}"
+
+    - name: Apply Terraform
+      command:
+        cmd: terraform apply -auto-approve
+        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale/terraform"
