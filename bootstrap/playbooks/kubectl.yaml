@@ -1,0 +1,44 @@
+- name: Install kubectl on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Ensure system is updated
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+        state: present
+
+    - name: Add Kubernetes APT's official GPG key
+      ansible.builtin.shell: >
+        curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+    - name: Add Kubernetes APT repository
+      ansible.builtin.shell: >
+        echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
+
+    - name: Update package index again after adding Kubernetes repo
+      apt:
+        update_cache: yes
+
+    - name: Install kubectl
+      apt:
+        name: kubectl
+        state: present
+
+    - name: Verify kubectl installation
+      command: kubectl version --client --output=yaml
+      register: kubectl_version
+      changed_when: false
+
+    - name: Display kubectl version
+      debug:
+        msg: "Kubectl installation completed successfully: {{ kubectl_version.stdout }}"
+

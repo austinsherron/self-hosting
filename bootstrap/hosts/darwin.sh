@@ -47,13 +47,13 @@ function update_ssh_config() {
     if [[ -f ~/.ssh/config ]]; then
         echo "[INFO] ~/.ssh/config already exists"
     else
-        add_default_ssh_config
+        add_default_ssh_config || return 1
     fi
 
     if grep -q "Host server-0" ~/.ssh/config; then
         echo "[INFO] host server-0 exists in ~/.ssh/config"
     else
-        add_server_ssh_config
+        add_server_ssh_config || return 1
     fi
 }
 
@@ -68,7 +68,7 @@ function setup_ssh() {
     echo "[INFO] copying $SSH_KEY_PATH.pub to $SERVER_0"
     ssh-copy-id -i "$SSH_KEY_PATH.pub" "$SSH_USER@$SERVER_0"
 
-    update_ssh_config
+    update_ssh_config || return 1
 }
 
 function ansible_hosts_path() {
@@ -94,12 +94,29 @@ function copy_ansible_hosts() {
     fi
 }
 
+function playbook_dir() {
+    echo "$(git rev-parse --show-toplevel)/bootstrap/playbooks"
+}
+
+function run_install_playbooks() {
+    echo "[INFO] running installation playbooks"
+
+    for playbook in "$(playbook_dir)/"*.yaml; do
+        echo "[INFO] running $(basename "${playbook%%.yaml}")"
+        ansible-playbook --ask-become-pass "$playbook"
+    done
+}
+
 echo "[INFO] bootstrapping darwin"
 
-install_ansible
-copy_ansible_hosts
-setup_ssh
+install_ansible || exit 1
+copy_ansible_hosts || exit 1
+setup_ssh || exit 1
 
 echo "[INFO] verifying ansible"
 ansible all -m ping -i "$ANSIBLE_HOSTS"
+
+run_install_playbooks || exit 1
+
+echo "[INFO] bootstrapping complete"
 

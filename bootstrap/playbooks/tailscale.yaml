@@ -1,0 +1,47 @@
+- name: Install Tailscale on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Ensure system is updated
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install dependencies for Tailscale
+      apt:
+        name:
+          - curl
+          - gnupg
+          - lsb-release
+        state: present
+
+    - name: Add Tailscale GPG key
+      apt_key:
+        url: https://pkgs.tailscale.com/stable/ubuntu/jammy.noarmor.gpg
+        state: present
+
+    - name: Add Tailscale APT repository
+      apt_repository:
+        repo: "deb https://pkgs.tailscale.com/stable/ubuntu {{ ansible_distribution_release | lower }} main"
+        state: present
+
+    - name: Install Tailscale package
+      apt:
+        name: tailscale
+        state: present
+
+    - name: Start and enable Tailscale service
+      systemd:
+        name: tailscaled
+        state: started
+        enabled: yes
+
+    - name: Authenticate Tailscale
+      command: tailscale up
+      register: tailscale_up
+      changed_when: false
+
+    - name: Display Tailscale status
+      debug:
+        msg: "Tailscale is up and running: {{ tailscale_up.stdout }}"
