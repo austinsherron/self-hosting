@@ -95,7 +95,7 @@ function copy_ansible_hosts() {
 }
 
 function playbook_dir() {
-    echo "$(git rev-parse --show-toplevel)/bootstrap/install"
+    echo "$(git rev-parse --show-toplevel)/bootstrap/playbooks"
 }
 
 function run_install_playbooks() {

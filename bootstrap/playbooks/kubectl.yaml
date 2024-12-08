@@ -16,26 +16,13 @@
           - curl
         state: present
 
-    # FIXME: these directives don't work
-    # - name: Add Google Cloud's official GPG key
-    #   apt_key:
-    #     url: https://pkgs.k8s.io/core/stable/v1.31/deb/Release.key
-    #     state: present
-    #
-    # - name: Add Kubernetes APT repository
-    #   apt_repository:
-    #     repo: "deb https://pkgs.k8s.io/core/stable/v1.31/deb/ kubernetes-xenial main"
-    #     state: present
-    #
-    # - name: Add Kubernetes APT repository
-    #   ansible.builtin.deb822_repository:
-    #     name: kubectl
-    #     types: [deb]
-    #     uris: "https://pkgs.k8s.io/core/stable/v1.31/deb/"
-    #     components: [binary]
-    #     signed_by: https://pkgs.k8s.io/core/stable/v1.31/deb/Release.key
-    #     state: present
-    #     enabled: true
+    - name: Add Kubernetes APT's official GPG key
+      ansible.builtin.shell: >
+        curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.28/deb/Release.key | sudo gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+    - name: Add Kubernetes APT repository
+      ansible.builtin.shell: >
+        echo "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.28/deb/ /" | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
     - name: Update package index again after adding Kubernetes repo
       apt:
