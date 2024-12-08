@@ -3,7 +3,7 @@ variable "oauth_client_id" {
 }
 
 variable "oauth_client_secret" {
-  description = "Password for the k8s-operator oauth client"
+  description = "password for the k8s-operator oauth client"
 }
 
 resource "kubernetes_namespace" "tailscale" {
@@ -15,8 +15,9 @@ resource "kubernetes_namespace" "tailscale" {
 resource "helm_release" "tailscale" {
   name       = "tailscale"
   namespace  = kubernetes_namespace.tailscale.metadata[0].name
-  chart      = "tailscale"
+  chart      = "tailscale-operator"
   repository = "https://pkgs.tailscale.com/helmcharts"
+  version    = "1.76.1"
   values = [
     jsonencode({
       oauth = {
