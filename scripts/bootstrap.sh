@@ -3,12 +3,20 @@
 set -Eeuo pipefail
 
 
-echo "Running installation scripts..."
+SCRIPTS_DIR="$(cd "$(dirname "$0")" && pwd)"
 
-for file in "$HOME/Workspace/workspace/self-hosting/scripts/install"/*.sh; do
-    echo "  Installing $(basename "${file%%.sh}")"
-    bash "$file"
-done
+function os_type() {
+    uname | tr '[:upper:]' '[:lower:]'
+}
 
-echo "Finished installations."
+if [[ "$(os_type)" == "darwin" ]]; then
+    # shellcheck source=/Users/austin/Workspace/workspace/self-hosting/scripts/hosts/darwin.sh
+    . "$SCRIPTS_DIR/hosts/darwin.sh"
+elif [[ "$(os_type)" == "linux" ]]; then
+    # shellcheck source=/Users/austin/Workspace/workspace/self-hosting/scripts/hosts/linux.sh
+    . "$SCRIPTS_DIR/hosts/linux.sh"
+else
+    echo "[ERROR] unrecognized os type=$(os_type)"
+    exit 1
+fi
 
