@@ -1,0 +1,9 @@
+- name: "Import microk8s playbook"
+  ansible.builtin.import_playbook: components/microk8s.yaml
+
+- name: "Import nfs playbook"
+  ansible.builtin.import_playbook: components/nfs.yaml
+
+- name: "Import tailscale playbook"
+  ansible.builtin.import_playbook: components/tailscale.yaml
+
