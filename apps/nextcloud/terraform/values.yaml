@@ -1,3 +1,7 @@
+service:
+  annotations:
+    tailscale.com/expose: "true"
+
 ingress:
   enabled: true
   annotations:
