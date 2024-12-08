@@ -4,7 +4,7 @@ BOOTSTRAP_PATH := bootstrap/main.sh
 INFRA_PATH := infra/main.sh
 
 NEXTCLOUD_PB := apps/nextcloud/terraform.yaml
-TAILSCALE_PB := infra/playbooks/install/tailscale.yaml
+TAILSCALE_PB := infra/playbooks/components/tailscale.yaml
 
 # stages
 
