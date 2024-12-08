@@ -1,0 +1,57 @@
+- name: Install kubectl on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Ensure system is updated
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install prerequisites
+      apt:
+        name:
+          - apt-transport-https
+          - ca-certificates
+          - curl
+        state: present
+
+    # FIXME: these directives don't work
+    # - name: Add Google Cloud's official GPG key
+    #   apt_key:
+    #     url: https://pkgs.k8s.io/core/stable/v1.31/deb/Release.key
+    #     state: present
+    #
+    # - name: Add Kubernetes APT repository
+    #   apt_repository:
+    #     repo: "deb https://pkgs.k8s.io/core/stable/v1.31/deb/ kubernetes-xenial main"
+    #     state: present
+    #
+    # - name: Add Kubernetes APT repository
+    #   ansible.builtin.deb822_repository:
+    #     name: kubectl
+    #     types: [deb]
+    #     uris: "https://pkgs.k8s.io/core/stable/v1.31/deb/"
+    #     components: [binary]
+    #     signed_by: https://pkgs.k8s.io/core/stable/v1.31/deb/Release.key
+    #     state: present
+    #     enabled: true
+
+    - name: Update package index again after adding Kubernetes repo
+      apt:
+        update_cache: yes
+
+    - name: Install kubectl
+      apt:
+        name: kubectl
+        state: present
+
+    - name: Verify kubectl installation
+      command: kubectl version --client --output=yaml
+      register: kubectl_version
+      changed_when: false
+
+    - name: Display kubectl version
+      debug:
+        msg: "Kubectl installation completed successfully: {{ kubectl_version.stdout }}"
+
