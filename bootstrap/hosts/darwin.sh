@@ -12,11 +12,19 @@ SSH_USER="austin"
 function install_ansible() {
     if which ansible &> /dev/null; then
         echo "[INFO] ansible already installed"
-        return 0
+    else
+        echo "[INFO] installing ansible"
+        brew install ansible
     fi
+}
 
-    echo "[INFO] installing ansible"
-    brew install ansible
+function install_ansible_collections() {
+    if ansible-galaxy collection list | grep -q community.general; then
+        echo "[INFO] ansible community.general collection already installed"
+    else
+        echo "[INFO] installing ansible community.general collection"
+        ansible-galaxy collection install community.general
+    fi
 }
 
 function add_default_ssh_config() {
@@ -110,6 +118,7 @@ function run_install_playbooks() {
 echo "[INFO] bootstrapping darwin"
 
 install_ansible || exit 1
+install_ansible_collections || exit 1
 copy_ansible_hosts || exit 1
 setup_ssh || exit 1
 

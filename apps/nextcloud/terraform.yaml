@@ -1,0 +1,35 @@
+- name: Run Nextcloud terraform
+  hosts: all
+  tasks:
+
+    # - name: Initialize Terraform
+    #   community.general.terraform:
+    #     project_path: ./terraform/
+    #     state: present
+    #     command: init
+    #     binary_path: /usr/bin/terraform
+
+    - name: Run Nextcloud Terraform plan
+      community.general.terraform:
+        project_path: ./terraform/
+        state: present
+        # binary_path: /usr/bin/terraform
+        # workspace: default
+        force_init: false
+        # auto_approve: true
+      register: plan_output
+
+    # - name: Display Nextcloud Terraform plan
+    #   debug:
+    #     msg: "{{ plan_output.stdout }}"
+    #
+    # - name: Apply Terraform
+    #   community.general.terraform:
+    #     project_path: terraform/
+    #     state: present
+    #     command: apply
+    #
+    #     # binary_path: /usr/bin/terraform
+    #     # workspace: default
+    #     force_init: false
+    #     auto_approve: true
