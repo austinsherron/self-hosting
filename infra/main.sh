@@ -3,17 +3,13 @@
 set -Eeuo pipefail
 
 
-function playbook_dir() {
-    echo "$(git rev-parse --show-toplevel)/infra/playbooks"
+function playbook_path() {
+    echo "$(git rev-parse --show-toplevel)/infra/playbooks/infra.yaml"
 }
 
 function run_infra_playbooks() {
-    echo "[INFO] running infra playbooks"
-
-    for playbook in "$(playbook_dir)/"*.yaml; do
-        echo "[INFO] running $(basename "${playbook%%.yaml}")"
-        ansible-playbook --ask-become-pass "$playbook"
-    done
+    echo "[INFO] running infra playbook"
+    ansible-playbook --ask-become-pass "$(playbook_path)"
 }
 
 echo "[INFO] provisioning infra"

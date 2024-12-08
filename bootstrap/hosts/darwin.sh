@@ -93,17 +93,13 @@ function copy_ansible_hosts() {
     fi
 }
 
-function playbook_dir() {
-    echo "$(git rev-parse --show-toplevel)/bootstrap/playbooks"
+function playbook_path() {
+    echo "$(git rev-parse --show-toplevel)/bootstrap/playbooks/bootstrap.yaml"
 }
 
-function run_install_playbooks() {
-    echo "[INFO] running installation playbooks"
-
-    for playbook in "$(playbook_dir)/"*.yaml; do
-        echo "[INFO] running $(basename "${playbook%%.yaml}")"
-        ansible-playbook --ask-become-pass "$playbook"
-    done
+function run_bootstrap_playbook() {
+    echo "[INFO] running bootstrap playbook"
+    ansible-playbook --ask-become-pass "$(playbook_path)"
 }
 
 echo "[INFO] bootstrapping darwin"
@@ -115,7 +111,7 @@ setup_ssh || exit 1
 echo "[INFO] verifying ansible"
 ansible all -m ping -i "$ANSIBLE_HOSTS"
 
-run_install_playbooks || exit 1
+run_bootstrap_playbook || exit 1
 
 echo "[INFO] bootstrapping complete"
 
