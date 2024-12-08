@@ -1,0 +1,41 @@
+- name: Initialize MicroK8s on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Start MicroK8s
+      command: microk8s start
+
+    - name: Wait for MicroK8s to start
+      command: microk8s status --wait-ready
+      register: microk8s_status
+      until: microk8s_status.rc == 0
+      retries: 5
+      delay: 10
+
+    - name: Get the kubeconfig from MicroK8s
+      command: microk8s config
+      register: kubeconfig_output
+      changed_when: false
+
+    - name: Check if kubeconfig file exists
+      stat:
+        path: "~/.kube/config"
+      register: kubeconfig_file
+
+    - name: Set the kubeconfig for the current user
+      copy:
+        content: "{{ kubeconfig_output.stdout }}"
+        dest: "~/.kube/config"
+        mode: '0644'
+        owner: "{{ ansible_user }}"
+        group: "{{ ansible_user }}"
+      when: not kubeconfig_file.stat.exists
+
+    - name: Get MicroK8s installation
+      command: microk8s kubectl get nodes
+      register: microk8s_nodes
+
+    - name: Display MicroK8s nodes
+      debug:
+        msg: "{{ microk8s_nodes.stdout }}"

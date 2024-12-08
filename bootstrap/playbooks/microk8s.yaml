@@ -1,0 +1,50 @@
+- name: Install MicroK8s on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Ensure system is updated
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install snapd
+      apt:
+        name: snapd
+        state: present
+
+    - name: Ensure snapd service is active
+      systemd:
+        name: snapd
+        state: started
+        enabled: yes
+
+    - name: Install MicroK8s using snap
+      snap:
+        name: microk8s
+        classic: yes
+        state: present
+
+    - name: Add user to microk8s group
+      user:
+        name: "{{ ansible_user }}"
+        groups: microk8s
+        append: yes
+
+    - name: Enable MicroK8s DNS addon
+      command: microk8s enable dns
+      register: dns_enable
+      changed_when: "'already enabled' not in dns_enable.stdout"
+
+    - name: Enable MicroK8s Dashboard addon
+      command: microk8s enable dashboard
+      register: dashboard_enable
+      changed_when: "'already enabled' not in dashboard_enable.stdout"
+
+    - name: Verify MicroK8s installation
+      command: microk8s status --wait-ready
+      register: microk8s_status
+
+    - name: Display MicroK8s status
+      debug:
+        msg: "MicroK8s is installed and running: {{ microk8s_status.stdout }}"

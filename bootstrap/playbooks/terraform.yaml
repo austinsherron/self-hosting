@@ -1,0 +1,44 @@
+- name: Install Terraform on Ubuntu
+  hosts: all
+  become: yes
+  tasks:
+
+    - name: Ensure system is updated
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install required dependencies
+      apt:
+        name:
+          - gnupg
+          - software-properties-common
+        state: present
+
+    - name: Add HashiCorp GPG key
+      apt_key:
+        url: https://apt.releases.hashicorp.com/gpg
+        state: present
+
+    - name: Add HashiCorp Linux repository
+      apt_repository:
+        repo: "deb https://apt.releases.hashicorp.com ubuntu main"
+        state: present
+        filename: hashicorp
+
+    - name: Update apt package cache
+      apt:
+        update_cache: yes
+
+    - name: Install Terraform
+      apt:
+        name: terraform
+        state: present
+
+    - name: Verify Terraform installation
+      command: terraform -v
+      register: terraform_version
+
+    - name: Display Terraform version
+      debug:
+        msg: "Terraform version installed: {{ terraform_version.stdout }}"
