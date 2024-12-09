@@ -1,7 +1,5 @@
 nextcloud:
-  host:
-    - nextcloud.kube.home
-    - nextcloud-nextcloud
+  host: nextcloud-nextcloud
 
 service:
   annotations:

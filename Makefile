@@ -1,4 +1,4 @@
-.PHONY: bootstrap infra nextcloud tailscale
+.PHONY: bootstrap infra apps nextcloud tailscale
 
 BOOTSTRAP_PATH := bootstrap/main.sh
 
