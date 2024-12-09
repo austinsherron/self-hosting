@@ -1,6 +1,6 @@
 - name: Initialize MicroK8s on Ubuntu
   hosts: all
-  become: yes
+  become: true
 
   tasks:
     - name: Start MicroK8s

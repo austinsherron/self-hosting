@@ -8,4 +8,4 @@
       git_dest_dir: ~/Workspace/workspace/self-hosting
 
 - name: "Import Nextcloud playbook"
-  ansible.builtin.import_playbook: playbooks/nextcloud.yaml
+  ansible.builtin.import_playbook: nextcloud.yaml

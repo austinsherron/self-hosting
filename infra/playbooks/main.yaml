@@ -8,10 +8,10 @@
       git_dest_dir: ~/Workspace/workspace/self-hosting
 
 - name: "Import microk8s playbook"
-  ansible.builtin.import_playbook: playbooks/microk8s.yaml
+  ansible.builtin.import_playbook: microk8s.yaml
 
 - name: "Import nfs playbook"
-  ansible.builtin.import_playbook: playbooks/nfs.yaml
+  ansible.builtin.import_playbook: nfs.yaml
 
 - name: "Import tailscale playbook"
-  ansible.builtin.import_playbook: playbooks/tailscale.yaml
+  ansible.builtin.import_playbook: tailscale.yaml

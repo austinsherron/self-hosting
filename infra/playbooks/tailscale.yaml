@@ -1,16 +1,9 @@
 - name: Run Tailscale terraform
   hosts: all
 
-  vars_prompt:
-    - name: oauth_client_id
-      prompt: k8s-operator oauth client ID
-      private: true
-
-    - name: oauth_client_secret
-      prompt: password for the k8s-operator oauth client
-      private: true
-
   vars:
+    oauth_client_id: "{{ lookup('env', 'TAILSCALE_OAUTH_CLIENT_ID') }}"
+    oauth_client_secret: "{{ lookup('env', 'TAILSCALE_OAUTH_CLIENT_SECRET') }}"
     tf_flags: >
       -no-color
       -var oauth_client_id={{ oauth_client_id }}
