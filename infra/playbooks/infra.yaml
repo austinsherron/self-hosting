@@ -1,5 +1,6 @@
 - name: Clone/pull self-hosting repo
   hosts: all
+
   roles:
   - role: ~/Workspace/workspace/self-hosting/ansible/roles/git_repo
     vars:
@@ -14,4 +15,3 @@
 
 - name: "Import tailscale playbook"
   ansible.builtin.import_playbook: components/tailscale.yaml
-

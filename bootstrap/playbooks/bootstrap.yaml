@@ -1,5 +1,6 @@
 - name: Clone/pull self-hosting repo
   hosts: all
+
   roles:
   - role: ~/Workspace/workspace/self-hosting/ansible/roles/git_repo
     vars:
