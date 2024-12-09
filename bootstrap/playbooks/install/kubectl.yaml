@@ -16,7 +16,7 @@
           - curl
         state: present
 
-    - name: Check Kubernetes APT's GPG key exists
+    - name: Check if Kubernetes APT's GPG key exists
       stat:
         path: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
       register: key_stat
