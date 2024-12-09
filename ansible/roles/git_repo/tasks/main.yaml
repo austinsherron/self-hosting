@@ -1,0 +1,26 @@
+- name: Ensure the destination directory exists
+  ansible.builtin.file:
+    path: "{{ git_dest_dir }}"
+    state: directory
+    mode: "0755"
+
+- name: Check if git repo exists
+  stat:
+    path: "{{ git_dest_dir }}"
+  register: git_repo_exists
+
+- name: Clone the Git repository if it doesn't exist
+  ansible.builtin.git:
+    repo: "{{ git_repo_url }}"
+    dest: "{{ git_dest_dir }}"
+    version: "{{ git_branch }}"
+    update: no
+  when: not git_repo_exists.stat.exists
+
+- name: Pull the latest changes if the repository exists
+  ansible.builtin.git:
+    repo: "{{ git_repo_url }}"
+    dest: "{{ git_dest_dir }}"
+    version: "{{ git_branch }}"
+    update: yes
+  when: git_repo_exists.stat.exists

@@ -1,8 +1,8 @@
 - name: Install git
   hosts: all
   become: yes
-  tasks:
 
+  tasks:
     - name: Ensure system is updated
       apt:
         update_cache: yes
