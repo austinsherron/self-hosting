@@ -1,3 +1,12 @@
+- name: Clone/pull self-hosting repo
+  hosts: all
+
+  roles:
+  - role: ~/Workspace/workspace/self-hosting/ansible/roles/git_repo
+    vars:
+      git_repo_url: https://github.com/austinsherron/self-hosting.git
+      git_dest_dir: ~/Workspace/workspace/self-hosting
+
 - name: "Import microk8s playbook"
   ansible.builtin.import_playbook: components/microk8s.yaml
 
@@ -6,4 +15,3 @@
 
 - name: "Import tailscale playbook"
   ansible.builtin.import_playbook: components/tailscale.yaml
-

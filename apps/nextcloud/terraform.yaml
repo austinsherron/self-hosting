@@ -1,7 +1,7 @@
 - name: Run Nextcloud terraform
   hosts: all
-  tasks:
 
+  tasks:
     - name: Initialize Terraform
       command:
         cmd: terraform init
