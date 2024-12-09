@@ -25,4 +25,4 @@ nextcloud:
 	@ansible-playbook $(NEXTCLOUD_PB)
 
 tailscale:
-	@ansible-playbook $(TAILSCALE_PB)
+	@ansible-playbook --ask-become-pass $(TAILSCALE_PB)
