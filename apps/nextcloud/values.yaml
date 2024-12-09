@@ -4,5 +4,3 @@ service:
 
 ingress:
   enabled: true
-  annotations:
-    tailscale.com/expose: "true"

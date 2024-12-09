@@ -20,12 +20,12 @@
     - name: Initialize Terraform
       command:
         cmd: terraform init
-        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale/terraform"
+        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale"
 
     - name: Run Tailscale Terraform plan
       command:
         cmd: terraform plan {{ tf_flags }}
-        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale/terraform"
+        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale"
       register: plan_output
 
     - name: Display Tailscale Terraform plan
@@ -35,4 +35,4 @@
     - name: Apply Terraform
       command:
         cmd: terraform apply -auto-approve {{ tf_flags }}
-        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale/terraform"
+        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale"

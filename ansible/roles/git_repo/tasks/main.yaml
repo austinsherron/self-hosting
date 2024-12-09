@@ -6,7 +6,7 @@
 
 - name: Check if git repo exists
   stat:
-    path: "{{ git_dest_dir }}"
+    path: "{{ git_dest_dir }}/.git"
   register: git_repo_exists
 
 - name: Clone the Git repository if it doesn't exist

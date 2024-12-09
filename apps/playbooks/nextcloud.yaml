@@ -5,12 +5,12 @@
     - name: Initialize Terraform
       command:
         cmd: terraform init
-        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud/terraform"
+        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud"
 
     - name: Run Nextcloud Terraform plan
       command:
         cmd: terraform plan -no-color
-        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud/terraform"
+        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud"
       register: plan_output
 
     - name: Display Nextcloud Terraform plan
@@ -20,4 +20,4 @@
     - name: Apply Terraform
       command:
         cmd: terraform apply -auto-approve
-        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud/terraform"
+        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud"
