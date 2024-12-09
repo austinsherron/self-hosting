@@ -2,6 +2,12 @@
 
 This repo contains code related to my self-hosted applications.
 
+## Manual Setup
+
+TODO
+
+## Workflows
+
 ## Todo
 
 - [ ] Update server-0 ssh config to require password and key

@@ -1,8 +1,10 @@
+nextcloud:
+  host: nextcloud-nextcloud
+
 service:
   annotations:
     tailscale.com/expose: "true"
 
 ingress:
+  className: tailscale
   enabled: true
-  annotations:
-    tailscale.com/expose: "true"
