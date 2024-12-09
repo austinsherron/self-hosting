@@ -1,6 +1,12 @@
+nextcloud:
+  host:
+    - nextcloud.kube.home
+    - nextcloud-nextcloud
+
 service:
   annotations:
     tailscale.com/expose: "true"
 
 ingress:
+  className: tailscale
   enabled: true
