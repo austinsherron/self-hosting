@@ -1,5 +1,11 @@
 nextcloud:
+  # datadir: /mnt/nas/Workspace/apps/nextcloud
   host: nextcloud-nextcloud
+
+persistence:
+  enabled: true
+  storageClass: local-nas
+  size: 50Gi
 
 service:
   annotations:

@@ -1,0 +1,46 @@
+- name: Ensure system is updated
+  apt:
+    update_cache: yes
+    upgrade: dist
+
+- name: Ensure NFS client utilities are installed
+  apt:
+    name: nfs-common
+    state: present
+    update_cache: yes
+
+- name: "Create {{ mount_point }} mount point dir"
+  file:
+    path: "{{ mount_point }}"
+    state: directory
+    mode: '0777'
+
+- name: "Check if {{ nfs_share }} NFS share is already mounted at {{ mount_point }}"
+  command: mountpoint -q {{ mount_point }}
+  register: mount_check
+  failed_when: false
+  changed_when: false
+
+- name: "Mount {{ nfs_ip }}:{{ nfs_share }} NFS share at {{ mount_point }} if not already mounted"
+  mount:
+    path: "{{ mount_point }}"
+    src: "{{ nfs_ip }}:{{ nfs_share }}"
+    fstype: nfs
+    opts: defaults
+    state: mounted
+  when: mount_check.rc != 0
+
+- name: Add entry to /etc/fstab
+  lineinfile:
+    path: /etc/fstab
+    line: "{{ nfs_ip }}:{{ nfs_share }} {{ mount_point }} nfs defaults 0 0"
+    state: present
+    insertafter: EOF
+
+- name: Verify mount
+  shell: mount | grep {{ mount_point }}
+  register: mount_entry
+
+- name: Display mount
+  debug:
+    msg: "Mount entry: {{ mount_entry.stdout }}"
