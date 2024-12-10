@@ -10,18 +10,7 @@ bootstrap:
 	@bash $(BOOTSTRAP_PATH)
 
 infra:
-	@bash $(INFRA_PATH)
+	@bash $(INFRA_PATH) $(PLAY)
 
 apps:
-	@bash $(APPS_PATH)
-
-# components
-
-nextcloud:
-	@bash $(APPS_PATH) nextcloud
-
-tailscale:
-	@bash $(INFRA_PATH) tailscale
-
-volume:
-	@bash $(INFRA_PATH) volume
+	@bash $(APPS_PATH) $(PLAY)
