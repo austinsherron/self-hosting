@@ -5,7 +5,7 @@ metadata:
   labels:
     type: local
 spec:
-  storageClassName: LocalNAS
+  storageClassName: local-nas
   capacity:
     storage: 100Gi
   accessModes:
