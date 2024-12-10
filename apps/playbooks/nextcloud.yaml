@@ -1,6 +1,14 @@
 - name: Run Nextcloud Terraform
   hosts: all
 
+  vars:
+    play: "{{ lookup('env', 'PLAY') | default('nextcloud', true) }}"
+
+  pre_tasks:
+    - name: Exit if play != nextcloud
+      meta: end_play
+      when: play != 'nextcloud'
+
   roles:
   - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
     vars:
