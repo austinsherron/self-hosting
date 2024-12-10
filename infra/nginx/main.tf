@@ -10,5 +10,5 @@ resource "helm_release" "nginx_helm_release" {
   chart      = "ingress-nginx"
   repository = "https://kubernetes.github.io/ingress-nginx"
   version    = "4.10.3"
-  values     = []
+  values     = [file("${path.module}/values.yaml")]
 }
