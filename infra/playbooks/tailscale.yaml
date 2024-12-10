@@ -1,31 +1,16 @@
-- name: Run Tailscale terraform
+- name: Run Tailscale Terraform
   hosts: all
 
   vars:
     oauth_client_id: "{{ lookup('env', 'TAILSCALE_OAUTH_CLIENT_ID') }}"
     oauth_client_secret: "{{ lookup('env', 'TAILSCALE_OAUTH_CLIENT_SECRET') }}"
-    tf_flags: >
-      -no-color
-      -var oauth_client_id={{ oauth_client_id }}
-      -var oauth_client_secret={{ oauth_client_secret }}
 
-  tasks:
-    - name: Initialize Terraform
-      command:
-        cmd: terraform init
-        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale"
-
-    - name: Run Tailscale Terraform plan
-      command:
-        cmd: terraform plan {{ tf_flags }}
-        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale"
-      register: plan_output
-
-    - name: Display Tailscale Terraform plan
-      debug:
-        msg: "{{ plan_output.stdout }}"
-
-    - name: Apply Terraform
-      command:
-        cmd: terraform apply -auto-approve {{ tf_flags }}
-        chdir: "~/Workspace/workspace/self-hosting/infra/tailscale"
+  roles:
+  - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
+    vars:
+      component_name: Tailscale
+      terraform_dir: ~/Workspace/workspace/self-hosting/infra/tailscale
+      tf_flags: >
+        -no-color
+        -var oauth_client_id={{ oauth_client_id }}
+        -var oauth_client_secret={{ oauth_client_secret }}

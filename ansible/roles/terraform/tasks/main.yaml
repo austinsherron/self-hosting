@@ -1,0 +1,19 @@
+- name: "Initialize {{ component_name }} Terraform"
+  command:
+    cmd: terraform init
+    chdir: "{{ terraform_dir }}"
+
+- name: "Run {{ component_name }} Terraform plan"
+  command:
+    cmd: terraform plan {{ tf_flags }}
+    chdir: "{{ terraform_dir }}"
+  register: plan_output
+
+- name: "Display {{ component_name }} Terraform plan"
+  debug:
+    msg: "{{ plan_output.stdout }}"
+
+- name: "Apply {{ component_name }} Terraform"
+  command:
+    cmd: terraform apply -auto-approve {{ tf_flags }}
+    chdir: "{{ terraform_dir }}"
