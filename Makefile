@@ -20,5 +20,8 @@ apps:
 nextcloud:
 	@bash $(APPS_PATH) nextcloud
 
+nginx:
+	@bash $(INFRA_PATH) nginx
+
 tailscale:
 	@bash $(INFRA_PATH) tailscale

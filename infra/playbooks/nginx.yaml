@@ -1,0 +1,8 @@
+- name: Run Nginx Terraform
+  hosts: all
+
+  roles:
+  - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
+    vars:
+      component_name: Nginx
+      terraform_dir: ~/Workspace/workspace/self-hosting/infra/nginx
