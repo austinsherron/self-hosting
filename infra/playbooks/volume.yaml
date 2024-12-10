@@ -1,0 +1,16 @@
+- name: Run PersistentVolume Terraform
+  hosts: all
+
+  vars:
+    play: "{{ lookup('env', 'PLAY') | default('volume', true) }}"
+
+  pre_tasks:
+    - name: Exit if play != volume
+      meta: end_play
+      when: play != 'volume'
+
+  roles:
+  - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
+    vars:
+      component_name: PersistentVolume
+      terraform_dir: ~/Workspace/workspace/self-hosting/infra/volume

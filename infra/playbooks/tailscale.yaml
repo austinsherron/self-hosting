@@ -4,6 +4,12 @@
   vars:
     oauth_client_id: "{{ lookup('env', 'TAILSCALE_OAUTH_CLIENT_ID') }}"
     oauth_client_secret: "{{ lookup('env', 'TAILSCALE_OAUTH_CLIENT_SECRET') }}"
+    play: "{{ lookup('env', 'PLAY') | default('tailscale', true) }}"
+
+  pre_tasks:
+    - name: Exit if play != tailscale
+      meta: end_play
+      when: play != 'tailscale'
 
   roles:
   - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform

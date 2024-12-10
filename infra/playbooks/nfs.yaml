@@ -6,6 +6,12 @@
     mount_point: "/mnt/nas"
     nfs_ip: "192.168.1.100"
     nfs_share: "/nfs/austin"
+    play: "{{ lookup('env', 'PLAY') | default('nfs', true) }}"
+
+  pre_tasks:
+    - name: Exit if play != nfs
+      meta: end_play
+      when: play != 'nfs'
 
   tasks:
     - name: Ensure system is updated

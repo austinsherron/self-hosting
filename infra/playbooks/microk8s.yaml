@@ -2,6 +2,14 @@
   hosts: all
   become: true
 
+  vars:
+    play: "{{ lookup('env', 'PLAY') | default('microk8s', true) }}"
+
+  pre_tasks:
+    - name: Exit if play != microk8s
+      meta: end_play
+      when: play != 'microk8s'
+
   tasks:
     - name: Start MicroK8s
       command: microk8s start

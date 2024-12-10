@@ -22,3 +22,6 @@ nextcloud:
 
 tailscale:
 	@bash $(INFRA_PATH) tailscale
+
+volume:
+	@bash $(INFRA_PATH) volume
