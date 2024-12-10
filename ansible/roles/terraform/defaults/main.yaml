@@ -1,0 +1,3 @@
+component_name: ~
+terraform_dir: ~
+tf_flags: "-no-color"
