@@ -19,3 +19,6 @@
 
 - name: "Import volume playbook"
   ansible.builtin.import_playbook: volume.yaml
+
+- name: "Import postgresql playbook"
+  ansible.builtin.import_playbook: postgresql.yaml
