@@ -1,11 +1,8 @@
-- name: Mount NFS volume and update fstab
+- name: Mount NFS volumes and update fstab
   hosts: all
   become: true
 
   vars:
-    mount_point: "/mnt/nas"
-    nfs_ip: "192.168.1.100"
-    nfs_share: "/nfs/austin"
     play: "{{ lookup('env', 'PLAY') | default('nfs', true) }}"
 
   pre_tasks:
@@ -13,50 +10,15 @@
       meta: end_play
       when: play != 'nfs'
 
-  tasks:
-    - name: Ensure system is updated
-      apt:
-        update_cache: yes
-        upgrade: dist
+  roles:
+    - role: ~/Workspace/workspace/self-hosting/ansible/roles/mount_nfs
+      vars:
+        mount_point: "/mnt/apps"
+        nfs_ip: "192.168.12.178"
+        nfs_share: "/nfs/apps"
 
-    - name: Ensure NFS client utilities are installed
-      apt:
-        name: nfs-common
-        state: present
-        update_cache: yes
-
-    - name: Create mount point dir
-      file:
-        path: "{{ mount_point }}"
-        state: directory
-        mode: '0777'
-
-    - name: Check if NFS share is already mounted
-      command: mountpoint -q {{ mount_point }}
-      register: mount_check
-      failed_when: false
-      changed_when: false
-
-    - name: Mount the NFS share if not already mounted
-      mount:
-        path: "{{ mount_point }}"
-        src: "{{ nfs_ip }}:{{ nfs_share }}"
-        fstype: nfs
-        opts: defaults
-        state: mounted
-      when: mount_check.rc != 0
-
-    - name: Add entry to /etc/fstab
-      lineinfile:
-        path: /etc/fstab
-        line: "{{ nfs_ip }}:{{ nfs_share }} {{ mount_point }} nfs defaults 0 0"
-        state: present
-        insertafter: EOF
-
-    - name: Verify mount
-      shell: mount | grep {{ mount_point }}
-      register: mount_entry
-
-    - name: Display mount
-      debug:
-        msg: "Mount entry: {{ mount_entry.stdout }}"
+    - role: ~/Workspace/workspace/self-hosting/ansible/roles/mount_nfs
+      vars:
+        mount_point: "/mnt/austin"
+        nfs_ip: "192.168.12.178"
+        nfs_share: "/nfs/austin"
