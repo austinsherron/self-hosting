@@ -1,3 +1,6 @@
 git_repo_url: ~
 git_dest_dir: ~
 git_branch: master
+
+git_repo: "{{ git_repo_url.split('/')[-1] }}"
+git_repo_name: "{{ git_repo.split('.')[0] }}"
