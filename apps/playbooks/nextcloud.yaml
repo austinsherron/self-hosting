@@ -1,23 +1,8 @@
-- name: Run Nextcloud terraform
+- name: Run Nextcloud Terraform
   hosts: all
 
-  tasks:
-    - name: Initialize Terraform
-      command:
-        cmd: terraform init
-        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud"
-
-    - name: Run Nextcloud Terraform plan
-      command:
-        cmd: terraform plan -no-color
-        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud"
-      register: plan_output
-
-    - name: Display Nextcloud Terraform plan
-      debug:
-        msg: "{{ plan_output.stdout }}"
-
-    - name: Apply Terraform
-      command:
-        cmd: terraform apply -auto-approve
-        chdir: "~/Workspace/workspace/self-hosting/apps/nextcloud"
+  roles:
+  - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
+    vars:
+      component_name: Nextcloud
+      terraform_dir: ~/Workspace/workspace/self-hosting/apps/nextcloud
