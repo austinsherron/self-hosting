@@ -28,7 +28,6 @@ resource "helm_release" "nextcloud" {
         enabled  = true
         type     = "postgresql"
         host     = "10.152.183.79:5432"
-        user     = "postgres"
         password = var.postgres_password
       }
       postgresql = {
