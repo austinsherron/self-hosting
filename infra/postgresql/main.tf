@@ -24,5 +24,8 @@ resource "helm_release" "postgresql_helm" {
       persistence = {
         storageClass = "nfs"
       }
+      service = {
+        type = "NodePort"
+      }
   })]
 }

@@ -6,7 +6,7 @@
     vars:
       git_repo_url: https://github.com/austinsherron/self-hosting.git
       git_dest_dir: ~/Workspace/workspace/self-hosting
-      git_branch: feature/nextcloud-pv
+      git_branch: feature/nextcloud-db
 
 - name: "Import microk8s playbook"
   ansible.builtin.import_playbook: microk8s.yaml
