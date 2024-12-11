@@ -18,33 +18,29 @@ resource "helm_release" "nextcloud" {
 
   values = [
     jsonencode({
-      image = {
-        flavor  = "apache"
-        version = "4.5.12"
-      }
       nextcloud = {
         host = "nextcloud-nextcloud"
       }
-      internalDatabase = {
-        enabled = false
-      }
-      externalDatabase = {
-        enabled  = true
-        type     = "postgresql"
-        host     = "10.152.183.79:5432"
-        password = var.postgres_password
-      }
-      postgresql = {
-        enabled = true
-
-        global = {
-          postgresql = {
-            auth = {
-              password = var.postgres_password
-            }
-          }
-        }
-      }
+      # internalDatabase = {
+      #   enabled = false
+      # }
+      # externalDatabase = {
+      #   enabled  = true
+      #   type     = "postgresql"
+      #   host     = "10.152.183.79:5432"
+      #   password = var.postgres_password
+      # }
+      # postgresql = {
+      #   enabled = true
+      #
+      #   global = {
+      #     postgresql = {
+      #       auth = {
+      #         password = var.postgres_password
+      #       }
+      #     }
+      #   }
+      # }
       service = {
         annotations = {
           "tailscale.com/expose" = "true"
