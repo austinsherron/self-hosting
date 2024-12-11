@@ -1,5 +1,5 @@
 variable "postgres_password" {
-  description = "k8s-operator oauth client ID"
+  description = "postgres user password"
 }
 
 resource "kubernetes_namespace" "database" {
@@ -13,7 +13,8 @@ resource "helm_release" "postgresql_helm" {
   namespace  = kubernetes_namespace.database.metadata[0].name
   chart      = "postgresql"
   repository = "https://charts.bitnami.com/bitnami"
-  version    = "16.2.5"
+  version    = "16.0.0"
+
   values = [
     jsonencode({
       auth = {
