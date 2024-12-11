@@ -26,7 +26,7 @@ provider "helm" {
 }
 
 provider "postgresql" {
-  host            = "10.152.183.54"
+  host            = "10.152.183.164"
   port            = 5432
   username        = "postgres"
   password        = var.postgres_password
