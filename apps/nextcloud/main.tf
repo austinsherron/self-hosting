@@ -1,5 +1,5 @@
-resource "postgresql_database" "nextcloud_db" {
-  name = "nextcloud"
+variable "postgres_password" {
+  description = "postgres user password"
 }
 
 resource "kubernetes_namespace" "nextcloud" {
@@ -26,9 +26,20 @@ resource "helm_release" "nextcloud" {
       externalDatabase = {
         enabled  = true
         type     = "postgresql"
-        host     = "10.152.183.164:5432"
+        host     = "postgresql.nextcloud.svc.local:5432"
         user     = "postgres"
         password = var.postgres_password
+      }
+      postgresql = {
+        enabled = true
+
+        global = {
+          postgresql = {
+            auth = {
+              password = var.postgres_password
+            }
+          }
+        }
       }
       service = {
         annotations = {
