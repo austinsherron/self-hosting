@@ -18,6 +18,10 @@ resource "helm_release" "nextcloud" {
 
   values = [
     jsonencode({
+      image = {
+        flavor  = "apache"
+        version = "4.5.12"
+      }
       nextcloud = {
         host = "nextcloud-nextcloud"
       }
