@@ -27,7 +27,7 @@ resource "helm_release" "nextcloud" {
       externalDatabase = {
         enabled  = true
         type     = "postgresql"
-        host     = "10.152.183.162:5432"
+        host     = "10.152.183.79:5432"
         user     = "postgres"
         password = var.postgres_password
       }
