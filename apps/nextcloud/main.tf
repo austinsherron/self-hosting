@@ -1,4 +1,4 @@
-resource "postgresql_database" "my_db" {
+resource "postgresql_database" "nextcloud_db" {
   name = "nextcloud"
 }
 
