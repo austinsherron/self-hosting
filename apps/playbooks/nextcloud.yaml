@@ -2,6 +2,7 @@
   hosts: all
 
   vars:
+    postgres_password: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
     play: "{{ lookup('env', 'PLAY') | default('nextcloud', true) }}"
 
   pre_tasks:
@@ -14,3 +15,6 @@
     vars:
       component_name: Nextcloud
       terraform_dir: ~/Workspace/workspace/self-hosting/apps/nextcloud
+      tf_flags: >
+        -no-color
+        -var postgres_password={{ postgres_password }}
