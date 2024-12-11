@@ -4,6 +4,7 @@ variable "oauth_client_id" {
 
 variable "oauth_client_secret" {
   description = "password for the k8s-operator oauth client"
+  sensitive = true
 }
 
 resource "kubernetes_namespace" "tailscale" {
