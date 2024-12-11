@@ -12,8 +12,8 @@ resource "kubernetes_namespace" "nextcloud" {
 resource "helm_release" "nextcloud" {
   name       = "nextcloud"
   namespace  = kubernetes_namespace.nextcloud.metadata[0].name
-  chart      = "nextcloud"
-  repository = "oci://tccr.io/truecharts/nextcloud"
+  chart      = "oci://tccr.io/truecharts/nextcloud"
+  repository = "oci://tccr.io/truecharts"
   # version    = "6.2.3"
 
   values = [
