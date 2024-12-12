@@ -1,0 +1,16 @@
+- name: Run Taskwarrior Web UI Terraform
+  hosts: all
+
+  vars:
+    play: "{{ lookup('env', 'PLAY') | default('taskwarrior', true) }}"
+
+  pre_tasks:
+    - name: Exit if play != taskwarrior
+      meta: end_play
+      when: play != 'taskwarrior'
+
+  roles:
+  - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
+    vars:
+      component_name: Taskwarrior Web UI
+      terraform_dir: ~/Workspace/workspace/self-hosting/apps/taskwarrior

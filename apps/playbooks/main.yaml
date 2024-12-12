@@ -9,3 +9,6 @@
 
 - name: "Import Nextcloud playbook"
   ansible.builtin.import_playbook: nextcloud.yaml
+
+- name: "Import Taskwarrior Web UI playbook"
+  ansible.builtin.import_playbook: taskwarrior.yaml
