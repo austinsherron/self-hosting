@@ -1,3 +1,9 @@
+resource "kubernetes_namespace" "taskwarrior" {
+  metadata {
+    name = "taskwarrior"
+  }
+}
+
 resource "kubernetes_manifest" "taskwarrior_web_ui_deploy" {
   manifest = yamldecode(file("${path.module}/web-ui/deploy.yaml"))
 }
