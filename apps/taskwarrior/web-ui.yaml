@@ -26,11 +26,6 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
-        # env:
-        # - name: TASKRC
-        #   value: "/path/to/taskrc" # Replace with the actual path to your taskrc file if needed
-        # - name: TASKDATA
-        #   value: "/path/to/taskdata" # Replace with the actual path to your task data
 ---
 apiVersion: v1
 kind: Service
