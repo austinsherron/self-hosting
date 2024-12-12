@@ -5,6 +5,8 @@ metadata:
   namespace: taskwarrior
   labels:
     app: webui
+  annotations:
+    tailscale.com/expose: "true"
 spec:
   type: NodePort
   selector:
