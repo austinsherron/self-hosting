@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webui
+  name: web
   namespace: taskwarrior
   labels:
-    app: webui
+    app: web
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webui
+      app: web
   template:
     metadata:
       labels:
-        app: webui
+        app: web
     spec:
       containers:
       - name: webui
