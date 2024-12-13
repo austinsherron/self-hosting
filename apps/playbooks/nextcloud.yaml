@@ -1,5 +1,5 @@
 - name: Run Nextcloud Terraform
-  hosts: all
+  hosts: servers
 
   vars:
     play: "{{ lookup('env', 'PLAY') | default('nextcloud', true) }}"

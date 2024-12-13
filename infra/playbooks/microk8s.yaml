@@ -1,5 +1,5 @@
 - name: Initialize MicroK8s on Ubuntu
-  hosts: all
+  hosts: servers
   become: true
 
   vars:

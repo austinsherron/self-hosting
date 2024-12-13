@@ -1,5 +1,5 @@
 - name: Run Tailscale Terraform
-  hosts: all
+  hosts: servers
 
   vars:
     oauth_client_id: "{{ lookup('env', 'TAILSCALE_OAUTH_CLIENT_ID') }}"
