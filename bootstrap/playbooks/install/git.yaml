@@ -1,5 +1,5 @@
 - name: Install git
-  hosts: all
+  hosts: servers
   become: yes
 
   tasks:

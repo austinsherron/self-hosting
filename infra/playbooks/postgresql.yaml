@@ -1,5 +1,5 @@
 - name: Run PostgreSQL Terraform
-  hosts: all
+  hosts: servers
 
   vars:
     postgres_password: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
