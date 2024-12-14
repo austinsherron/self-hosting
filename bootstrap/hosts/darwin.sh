@@ -18,6 +18,15 @@ function install_ansible() {
     fi
 }
 
+function ansible_path() {
+    echo "$(git rev-parse --show-toplevel)/ansible"
+}
+
+function install_ansible_collections() {
+    echo "[INFO] installing required ansible collections"
+    ansible-galaxy collection install -r "$(ansible_path)/requirements.yaml"
+}
+
 function add_default_ssh_config() {
     echo "[INFO] Adding default ssh config"
 
@@ -71,7 +80,7 @@ function setup_ssh() {
 }
 
 function ansible_hosts_path() {
-    echo "$(git rev-parse --show-toplevel)/ansible/hosts"
+    echo "$(ansible_path)/hosts"
 }
 
 function copy_ansible_hosts() {
@@ -105,6 +114,7 @@ function run_bootstrap_playbook() {
 echo "[INFO] bootstrapping darwin"
 
 install_ansible || exit 1
+install_ansible_collections || exit 1
 copy_ansible_hosts || exit 1
 setup_ssh || exit 1
 
