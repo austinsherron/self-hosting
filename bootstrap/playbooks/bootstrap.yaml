@@ -10,6 +10,9 @@
 - name: "Import git playbook"
   ansible.builtin.import_playbook: install/git.yaml
 
+- name: "Import python playbook"
+  ansible.builtin.import_playbook: install/python.yaml
+
 - name: "Import kubectl playbook"
   ansible.builtin.import_playbook: install/kubectl.yaml
 
