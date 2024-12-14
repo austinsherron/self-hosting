@@ -1,5 +1,5 @@
 - name: Install MicroK8s on Ubuntu
-  hosts: all
+  hosts: servers
   become: yes
 
   tasks:

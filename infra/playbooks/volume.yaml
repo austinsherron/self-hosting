@@ -1,5 +1,5 @@
 - name: Run PersistentVolume Terraform
-  hosts: all
+  hosts: servers
 
   vars:
     play: "{{ lookup('env', 'PLAY') | default('volume', true) }}"

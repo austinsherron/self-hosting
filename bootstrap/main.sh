@@ -9,6 +9,8 @@ function os_type() {
     uname | tr '[:upper:]' '[:lower:]'
 }
 
+export ANSIBLE_STDOUT_CALLBACK="debug"
+
 if [[ "$(os_type)" == "darwin" ]]; then
     # shellcheck source=/Users/austin/Workspace/workspace/self-hosting/bootstrap/hosts/darwin.sh
     . "$BOOTSTRAP_DIR/hosts/darwin.sh"

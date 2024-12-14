@@ -1,5 +1,5 @@
 - name: Install Tailscale on Ubuntu
-  hosts: all
+  hosts: servers
   become: yes
 
   tasks:
