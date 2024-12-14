@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: web
-  namespace: taskwarrior
+  namespace: task
   labels:
     app: web
 spec:
@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
       - name: webui
-        image: dcsunset/taskwarrior-webui:latest
+        image: dcsunset/taskwarrior-webui:3
         ports:
-        - containerPort: 3000
+        - containerPort: 80
         resources:
           requests:
             memory: "128Mi"

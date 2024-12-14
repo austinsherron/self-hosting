@@ -2,7 +2,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: web
-  namespace: taskwarrior
+  namespace: task
   labels:
     app: web
   annotations:
@@ -13,5 +13,5 @@ spec:
     app: web
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 3000
+    port: 8080
+    targetPort: 80

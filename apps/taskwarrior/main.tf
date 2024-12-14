@@ -1,6 +1,6 @@
-resource "kubernetes_namespace" "taskwarrior" {
+resource "kubernetes_namespace" "task" {
   metadata {
-    name = "taskwarrior"
+    name = "task"
   }
 }
 
