@@ -1,5 +1,5 @@
 - name: Clone/pull self-hosting repo
-  hosts: all
+  hosts: servers
 
   roles:
   - role: ~/Workspace/workspace/self-hosting/ansible/roles/git_repo
@@ -19,3 +19,6 @@
 
 - name: "Import volume playbook"
   ansible.builtin.import_playbook: volume.yaml
+
+- name: "Import postgresql playbook"
+  ansible.builtin.import_playbook: postgresql.yaml

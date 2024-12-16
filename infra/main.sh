@@ -29,6 +29,9 @@ TAILSCALE_OAUTH_CLIENT_ID="$(op item get oa5ggk7crqwb6qbxcnoazz2oau --fields use
 export TAILSCALE_OAUTH_CLIENT_SECRET
 TAILSCALE_OAUTH_CLIENT_SECRET="$(op item get oa5ggk7crqwb6qbxcnoazz2oau --fields credential)"
 
+export POSTGRES_PASSWORD
+POSTGRES_PASSWORD="$(op item get pgny73g4eufx7pifryeapy6sfe --fields password)"
+
 [[ $# -gt 0 ]] && export PLAY="$1"
 validate_play || exit 1
 

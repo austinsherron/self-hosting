@@ -1,0 +1,19 @@
+- name: Install git
+  hosts: servers
+  become: yes
+
+  tasks:
+    - name: Ensure system is updated
+      apt:
+        update_cache: yes
+        upgrade: dist
+
+    - name: Install pip3
+      apt:
+        name: python3-pip
+        state: present
+
+    - name: Install kubernetes library
+      ansible.builtin.pip:
+        name: kubernetes
+        executable: pip3

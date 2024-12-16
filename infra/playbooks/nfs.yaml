@@ -1,5 +1,5 @@
 - name: Mount NFS volumes and update fstab
-  hosts: all
+  hosts: servers
   become: true
 
   vars:

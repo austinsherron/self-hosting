@@ -1,0 +1,20 @@
+- name: Run PostgreSQL Terraform
+  hosts: servers
+
+  vars:
+    postgres_password: "{{ lookup('env', 'POSTGRES_PASSWORD') }}"
+    play: "{{ lookup('env', 'PLAY') | default('postgresql', true) }}"
+
+  pre_tasks:
+    - name: Exit if play != postgresql
+      meta: end_play
+      when: play != 'postgresql'
+
+  roles:
+  - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
+    vars:
+      component_name: PostgreSQL
+      terraform_dir: ~/Workspace/workspace/self-hosting/infra/postgresql
+      tf_flags: >
+        -no-color
+        -var postgres_password={{ postgres_password }}
