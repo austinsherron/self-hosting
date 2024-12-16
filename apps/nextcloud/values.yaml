@@ -1,5 +1,5 @@
 nextcloud:
-  datadir: /mnt/nas/Workspace/apps/nextcloud
+  datadir: /mnt/apps/nextcloud
   host: nextcloud-nextcloud
 
 persistence:
