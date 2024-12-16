@@ -5,7 +5,7 @@ nextcloud:
 persistence:
   enabled: true
   storageClass: nfs
-  # size: 50Gi
+  size: 50Gi
 
 service:
   annotations:

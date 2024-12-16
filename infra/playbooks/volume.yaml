@@ -1,5 +1,5 @@
-- name: Run PersistentVolume Terraform
-  hosts: all
+- name: Apply PersistentVolume Kubernetes resources
+  hosts: servers
 
   vars:
     play: "{{ lookup('env', 'PLAY') | default('volume', true) }}"
@@ -9,8 +9,15 @@
       meta: end_play
       when: play != 'volume'
 
-  roles:
-  - role: ~/Workspace/workspace/self-hosting/ansible/roles/terraform
-    vars:
-      component_name: PersistentVolume
-      terraform_dir: ~/Workspace/workspace/self-hosting/infra/volume
+  tasks:
+    - name: Apply nfs StorageClass
+      kubernetes.core.k8s:
+        state: present
+        kubeconfig: ~/.kube/config
+        src: ~/Workspace/workspace/self-hosting/infra/volume/nfs-sc.yaml
+
+    - name: Apply apps-volume PersistentVolume
+      kubernetes.core.k8s:
+        state: present
+        kubeconfig: ~/.kube/config
+        src: ~/Workspace/workspace/self-hosting/infra/volume/apps-pv.yaml
