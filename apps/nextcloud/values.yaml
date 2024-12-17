@@ -14,6 +14,13 @@ persistence:
     storageClass: nfs
     size: 50Gi
 
+
+livenessProbe:
+  initialDelaySeconds: 240
+
+readinessProbe:
+  initialDelaySeconds: 240
+
 service:
   annotations:
     tailscale.com/expose: "true"
