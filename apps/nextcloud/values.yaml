@@ -5,9 +5,10 @@ nextcloud:
     subPath: nextcloud
 
 persistence:
-  enabled: true
-  storageClass: nfs
-  size: 50Gi
+  nextcloudData:
+    enabled: true
+    storageClass: nfs
+    size: 50Gi
 
 service:
   annotations:
