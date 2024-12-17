@@ -1,6 +1,9 @@
 nextcloud:
   datadir: /mnt/apps/nextcloud
   host: nextcloud-nextcloud
+  
+  persistence:
+    subPath: nextcloud
 
 persistence:
   enabled: true
